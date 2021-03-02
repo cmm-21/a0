@@ -115,7 +115,7 @@ public:
 
         // draw Box
         nvgBeginPath(vg);
-        nvgRect(vg, rect.center[0]-rect.size[0]/2.f, rect.center[1]-rect.size[1]/2.f, rect.size[0], rect.size[1]);
+        nvgRoundedRect(vg, rect.center[0]-rect.size[0]/2.f, rect.center[1]-rect.size[1]/2.f, rect.size[0], rect.size[1], 10.f);
         nvgFillColor(vg, rect.colorFill);
         nvgFill(vg);
         nvgStrokeColor(vg, rect.colorStroke);
@@ -140,22 +140,26 @@ public:
 
             // draw circle key
             drawCircle(circleKey);
-            if(circleKey.pos.isApprox(circleKeyStart)){
+            {
                 nvgBeginPath(vg);
                 nvgFontFace(vg, "sans");
                 nvgFontSize(vg, 16.f);
-                nvgFillColor(vg, nvgRGB(0, 0, 0));
+                float d = (circleKey.pos - circleKeyStart).squaredNorm();
+                nvgFillColor(vg, nvgRGBAf(0, 0, 0, std::max(0.f, 1.f-0.0001f*d)));
+                nvgFontBlur(vg, std::min(1000.f, d));
                 nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
                 nvgText(vg, circleKey.pos[0] + circleKey.radius + 5, circleKey.pos[1], "move me with arrow keys", nullptr);
                 nvgFill(vg);
             }
 
             drawCircle(circleMouse);
-            if(circleMouse.pos.isApprox(circleMouseStart)){
+            {
                 nvgBeginPath(vg);
                 nvgFontFace(vg, "sans");
                 nvgFontSize(vg, 16.f);
-                nvgFillColor(vg, nvgRGB(0, 0, 0));
+                float d = (circleMouse.pos - circleMouseStart).squaredNorm();
+                nvgFillColor(vg, nvgRGBAf(0, 0, 0, std::max(0.f, 1.f-0.0001f*d)));
+                nvgFontBlur(vg, std::min(1000.f, 0.3f*d));
                 nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
                 nvgText(vg, circleMouse.pos[0] + circleMouse.radius + 5, circleMouse.pos[1], "drag me with the cursor", nullptr);
                 nvgFill(vg);
