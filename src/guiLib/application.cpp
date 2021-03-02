@@ -15,12 +15,12 @@
 #include <stb_image_write.h>
 
 #if defined __APPLE__ && !defined RETINA_SCREEN
-#define RETINA_SCREEN 1
+#define RETINA_SCREEN
 #endif
 
 float get_pixel_ratio() {
-#if RETINA_SCREEN == 1
-    return 1.f;
+#ifdef RETINA_SCREEN
+    return 2.f;
 #endif
     GLFWmonitor* monitor = glfwGetPrimaryMonitor();
     if(monitor == nullptr) throw "Primary monitor not found.";
@@ -51,8 +51,10 @@ Application::Application(const char *title, int w, int h, std::string iconPath, 
     this->width = w * pixelRatio;
     this->height = h * pixelRatio;
 
+    int windowWidth = w, windowHeight = h;
+
     // glfw window creation
-    window = glfwCreateWindow(this->width, this->height, title, nullptr, nullptr);
+    window = glfwCreateWindow(windowWidth, windowHeight, title, nullptr, nullptr);
     if (window == nullptr)
     {
         glfwTerminate();
@@ -80,14 +82,14 @@ Application::Application(const char *title, int w, int h, std::string iconPath, 
     IMGUI_CHECKVERSION();
     ImGui::CreateContext();
     ImGuiIO& io = ImGui::GetIO();
-    io.DisplayFramebufferScale = {2,2};
+    // io.DisplayFramebufferScale = {2,2};
     ImFontConfig cfg;
-//    cfg.SizePixels = 40 * pixelRatio;
-    ImFont *imFont = io.Fonts->AddFontFromFileTTF(font.c_str(), 16.0f * pixelRatio, &cfg);
+   cfg.SizePixels = 40 * pixelRatio;
+    ImFont *imFont = io.Fonts->AddFontFromFileTTF(font.c_str(), 14.0f, &cfg);
 ////    imFont->DisplayOffset.y = pixelRatio;
     ImGuiStyle& style = ImGui::GetStyle();
 //    io.FontGlobalScale = pixelRatio;
-    style.ScaleAllSizes(pixelRatio);
+    // style.ScaleAllSizes(pixelRatio);
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
@@ -161,10 +163,7 @@ void Application::setCallbacks() {
         }
 
         auto app = static_cast<Application*>(glfwGetWindowUserPointer(window));
-#ifdef RETINA_SCREEN
-        xpos *= 2;
-        ypos *= 2;
-#else
+#ifndef RETINA_SCREEN
         xpos /= app->pixelRatio;
         ypos /= app->pixelRatio;
 #endif
@@ -278,10 +277,10 @@ void Application::resizeWindow(int width, int height) {
     this->width = width;
     this->height = height;
 
-#if RETINA_SCREEN == 1
-    this->width /= 2;
-    this->height /= 2;
-#endif
+// #ifdef RETINA_SCREEN
+//     this->width /= 2;
+//     this->height /= 2;
+// #endif
 
     glViewport(0, 0, width, height);
 }

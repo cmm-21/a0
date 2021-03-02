@@ -72,13 +72,11 @@ public:
                     circles.push_back({Vector2f(randX, randY), Circle{origin, randR, nvgRGBA(r, g, b, a), nvgRGBA(r, g, b, (2*a)%255)}});
                 };
 
-                for (int i = 0; i < 2; ++i){
-                    make_circle(circleKey.pos);
-                    make_circle(circleMouse.pos);
-                }
+                make_circle(circleKey.pos);
+                make_circle(circleMouse.pos);
 
-                if(circles.size() > 1000)
-                    circles.erase(circles.begin(), circles.begin()+100);
+                if(circles.size() > 500)
+                    circles.erase(circles.begin(), circles.begin()+10);
 
                 for(auto &c : circles)
                     c.second.pos += c.first;
