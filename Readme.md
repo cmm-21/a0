@@ -1,10 +1,29 @@
 # Assignement 0
 
-Please fill in your name and student id
+This assignment has two purposes:
 
-- First Name: `your first name`
-- Last Name: `your last name`
-- Student ID: `your legi number`
+1. match your github username to your student ID
+2. make sure you can build and run the starter code
+
+## Part 1: match github to student ID
+
+1. Insert your student id (Legi Nummer) in the file `student-id.txt`. Example: Your student id is 12-345-678. The contens of `student-id.txt` should be: 
+    ```
+    12-345-678
+    ```
+
+2. Commit and push the changes to `student-id.txt`. For example:
+
+   ```
+   git add student-id.txt
+   git commit -m "added my student id number"
+git push
+   ```
+   
+
+3. Verify that your changes were uploaded to github.com by checking github.com/cmm-21/a0-YOUR_GITHUB_NAME
+
+## Part 2: build and run starter code
 
 This assignement is to make sure your computer and you are both set up for the next three assignements. You do not have to hand-in anything. However, you can already play around with the code, and commit and push changes to your repository. For future assignements, you will have to commit and push your solutions to github. Commits (or rather pushes) after the deadline will be disregarded. So make sure you are ready and test out things with this assignement.
 
