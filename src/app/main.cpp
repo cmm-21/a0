@@ -92,7 +92,7 @@ public:
 
         using namespace ImGui;
 
-        SetNextWindowSize({width - 40.f, static_cast<float>(200)}, ImGuiCond_FirstUseEver);
+        SetNextWindowSize({width - 40.f, 200.f}, ImGuiCond_FirstUseEver);
         SetNextWindowPos({20.f, 60.f}, ImGuiCond_FirstUseEver);
         Begin("Hello World!");
         TextWrapped("Use the arrow keys to move the first circle.");

@@ -92,7 +92,7 @@ Application::Application(const char *title, int w, int h, std::string iconPath, 
 ////    imFont->DisplayOffset.y = pixelRatio;
     ImGuiStyle& style = ImGui::GetStyle();
 #ifdef RETINA_SCREEN
-//    io.FontGlobalScale = pixelRatio;
+   io.FontGlobalScale = 1.f/pixelRatio;
 #else
     style.ScaleAllSizes(pixelRatio);
 #endif
