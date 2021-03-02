@@ -51,8 +51,11 @@ Application::Application(const char *title, int w, int h, std::string iconPath, 
     this->width = w * pixelRatio;
     this->height = h * pixelRatio;
 
+#ifdef RETINA_SCREEN
     int windowWidth = w, windowHeight = h;
-
+#else
+    int windowWidth = width, windowHeight = height;
+#endif
     // glfw window creation
     window = glfwCreateWindow(windowWidth, windowHeight, title, nullptr, nullptr);
     if (window == nullptr)
@@ -85,11 +88,14 @@ Application::Application(const char *title, int w, int h, std::string iconPath, 
     // io.DisplayFramebufferScale = {2,2};
     ImFontConfig cfg;
    cfg.SizePixels = 40 * pixelRatio;
-    ImFont *imFont = io.Fonts->AddFontFromFileTTF(font.c_str(), 14.0f, &cfg);
+    ImFont *imFont = io.Fonts->AddFontFromFileTTF(font.c_str(), 14.0f * pixelRatio, &cfg);
 ////    imFont->DisplayOffset.y = pixelRatio;
     ImGuiStyle& style = ImGui::GetStyle();
+#ifdef RETINA_SCREEN
 //    io.FontGlobalScale = pixelRatio;
-    // style.ScaleAllSizes(pixelRatio);
+#else
+    style.ScaleAllSizes(pixelRatio);
+#endif
 
     ImGui_ImplGlfw_InitForOpenGL(window, true);
     ImGui_ImplOpenGL3_Init(glsl_version);
