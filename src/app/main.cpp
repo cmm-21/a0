@@ -17,17 +17,29 @@ class TestApp : public Application
 
 public:
     TestApp(int w, int h, const char * title) : Application(title, w, h) {
+
+        ImGui::StyleColorsClassic();
+
+        const char* name = IMGUI_FONT_FOLDER"/Cousine-Regular.ttf";
+        nvgCreateFont(vg, "sans", name);
+
         lastFrame = std::chrono::high_resolution_clock::now();
 
-        circleKey = {{w/2-200, h/2-100}, 30, COLOR_OUT, nvgRGBA(50, 50, 50, 100)};
-        circleMouse = {{w/2-200, h/2+100}, 20, COLOR_OUT, nvgRGBA(50, 50, 50, 100)};
-        rect = Box{{w/2+200, h/2}, Vector2f(100, 150), nvgRGBA(50, 50, 50, 100), nvgRGBA(50, 50, 50, 200)};
+        Vector2f center = {w/2, 130 + (h-130)/2};
+        circleKeyStart = center + Vector2f{-200, -100};
+        circleMouseStart = center + Vector2f{-200,  100};
+        circleKey   = {circleKeyStart,   30, COLOR_OUT, nvgRGBA(10, 10, 10, 255)};
+        circleMouse = {circleMouseStart, 20, COLOR_OUT, nvgRGBA(10, 10, 10, 255)};
+        rect = Box{center + Vector2f{200, 0}, Vector2f(150, 200), nvgRGBA(150, 150, 150, 250), nvgRGBA(10, 10, 10, 200)};
 
     }
 
     void process() override {
         std::chrono::high_resolution_clock::time_point now = std::chrono::high_resolution_clock::now();
-        if(std::chrono::duration_cast<std::chrono::microseconds>(now-lastFrame).count() >= 1./60. * 1.e6){
+#ifdef SINGLE_BUFFER
+        if(std::chrono::duration_cast<std::chrono::microseconds>(now-lastFrame).count() >= 1./60. * 1.e6)
+#endif
+        {
             Vector2f vel(0, 0);
             if(keyDown[GLFW_KEY_LEFT])
                 vel[0] -= 1;
@@ -48,16 +60,24 @@ public:
                 circleMouse.pos = Vector2f(mouseState.lastMouseX, mouseState.lastMouseY) - draggingCircleOffset;
 
             if(isInsideKey && isInsideMouse){
-                float randX = (20.f*((float) rand() / (RAND_MAX)) + .1f) * ((rand()%2) ? -1 : 1);
-                float randY = (20.f*((float) rand() / (RAND_MAX)) + .1f) * ((rand()%2) ? -1 : 1);
-                float randR = 30.f*((float) rand() / (RAND_MAX)) + 10.f;
-                int r = rand() % 255;
-                int g = rand() % 255;
-                int b = rand() % 255;
-                int a = rand() % 255;
-                circles.push_back({Vector2f(randX, randY), Circle{rect.center, randR, nvgRGBA(r, g, b, a), nvgRGBA(r, g, b, (2*a)%255)}});
+                auto make_circle = [&](Vector2f origin)
+                {
+                    float randX = (5.f*((float) rand() / (RAND_MAX)) + .1f) * ((rand()%2) ? -1 : 1);
+                    float randY = (5.f*((float) rand() / (RAND_MAX)) + .1f) * ((rand()%2) ? -1 : 1);
+                    float randR = 30.f*((float) rand() / (RAND_MAX)) + 10.f;
+                    unsigned char r = rand() % 255;
+                    unsigned char g = rand() % 255;
+                    unsigned char b = rand() % 255;
+                    unsigned char a = rand() % 255;
+                    circles.push_back({Vector2f(randX, randY), Circle{origin, randR, nvgRGBA(r, g, b, a), nvgRGBA(r, g, b, (2*a)%255)}});
+                };
 
-                if(circles.size() > 400)
+                for (int i = 0; i < 2; ++i){
+                    make_circle(circleKey.pos);
+                    make_circle(circleMouse.pos);
+                }
+
+                if(circles.size() > 1000)
                     circles.erase(circles.begin(), circles.begin()+100);
 
                 for(auto &c : circles)
@@ -74,6 +94,8 @@ public:
 
         using namespace ImGui;
 
+        SetNextWindowSize({width - 40.f, static_cast<float>(200)}, ImGuiCond_FirstUseEver);
+        SetNextWindowPos({20.f, 60.f}, ImGuiCond_FirstUseEver);
         Begin("Hello World!");
         TextWrapped("Use the arrow keys to move the first circle.");
         TextWrapped("Drag the other circle with the mouse.");
@@ -92,13 +114,14 @@ public:
     }
 
     void drawNanoVG() override {
+
         // draw Box
         nvgBeginPath(vg);
         nvgRect(vg, rect.center[0]-rect.size[0]/2.f, rect.center[1]-rect.size[1]/2.f, rect.size[0], rect.size[1]);
         nvgFillColor(vg, rect.colorFill);
         nvgFill(vg);
         nvgStrokeColor(vg, rect.colorStroke);
-        nvgStrokeWidth(vg, 10.0f);
+        nvgStrokeWidth(vg, 4.0f);
         nvgStroke(vg);
 
         if(drawCircles)
@@ -109,7 +132,8 @@ public:
                 nvgFillColor(vg, circle.colorFill);
                 nvgFill(vg);
                 nvgStrokeColor(vg, circle.colorStroke);
-                nvgStrokeWidth(vg, 10.0f);
+                nvgStrokeWidth(vg, 4.0f);
+                nvgStroke(vg);
                 nvgStroke(vg);
             };
 
@@ -118,13 +142,32 @@ public:
 
             // draw circle key
             drawCircle(circleKey);
+            if(circleKey.pos.isApprox(circleKeyStart)){
+                nvgBeginPath(vg);
+                nvgFontFace(vg, "sans");
+                nvgFontSize(vg, 16.f);
+                nvgFillColor(vg, nvgRGB(0, 0, 0));
+                nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
+                nvgText(vg, circleKey.pos[0] + circleKey.radius + 5, circleKey.pos[1], "move me with arrow keys", nullptr);
+                nvgFill(vg);
+            }
+
             drawCircle(circleMouse);
+            if(circleMouse.pos.isApprox(circleMouseStart)){
+                nvgBeginPath(vg);
+                nvgFontFace(vg, "sans");
+                nvgFontSize(vg, 16.f);
+                nvgFillColor(vg, nvgRGB(0, 0, 0));
+                nvgTextAlign(vg, NVG_ALIGN_LEFT | NVG_ALIGN_MIDDLE);
+                nvgText(vg, circleMouse.pos[0] + circleMouse.radius + 5, circleMouse.pos[1], "drag me with the cursor", nullptr);
+                nvgFill(vg);
+            }
         }
 
         if(drawCursor){
             nvgBeginPath(vg);
-            nvgCircle(vg, mouseState.lastMouseX, mouseState.lastMouseY, 10.f);
             nvgFillColor(vg, rect.colorStroke);
+            nvgCircle(vg, mouseState.lastMouseX, mouseState.lastMouseY, 10.f);
             nvgFill(vg);
         }
     }
@@ -162,15 +205,16 @@ private:
 private:
     bool drawCursor = false;
     bool drawCircles = true;
+    Vector2f circleKeyStart, circleMouseStart;
     struct Circle
     {
-        bool isInside(const Vector2f &x){
-            return (x-pos).squaredNorm() <= radius*radius;
-        }
-
         Vector2f pos;
         float radius;
         NVGcolor colorFill, colorStroke;
+
+        bool isInside(const Vector2f &x){
+            return (x-pos).squaredNorm() <= radius*radius;
+        }
     } circleKey, circleMouse;
     struct Box {
         bool isInside(const Vector2f &x, float slack = 0.f) {

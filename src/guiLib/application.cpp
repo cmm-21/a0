@@ -218,11 +218,8 @@ void Application::process() {
 }
 
 void Application::draw() {
-    glClearColor(0.8f, 0.8f, 0.8f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    ImGui_ImplOpenGL3_NewFrame();
-    ImGui_ImplGlfw_NewFrame();
+    glClearColor(clearColor[0], clearColor[1], clearColor[2], 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 
     // nano vg
     {
@@ -230,6 +227,10 @@ void Application::draw() {
         drawNanoVG();
         nvgEndFrame(vg);
     }
+
+    ImGui_ImplOpenGL3_NewFrame();
+    ImGui_ImplGlfw_NewFrame();
+
 
     // ImGui
     {

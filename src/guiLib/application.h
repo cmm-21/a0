@@ -65,7 +65,8 @@ public:
 
     struct NVGcontext* vg;
 
-    float clearColor[3] = { 0.8f, 0.8f, 0.8f };
+//    float clearColor[3] = { 0.1f, 0.1f, 0.1f };
+    float clearColor[3] = { .9f, .9f, .9f };
 
     MouseState mouseState;
     std::map<int, bool> keyDown;
