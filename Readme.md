@@ -17,7 +17,7 @@ This assignment has two purposes:
    ```
    git add student-id.txt
    git commit -m "added my student id number"
-git push
+   git push
    ```
    
 
