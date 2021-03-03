@@ -21,7 +21,7 @@ This assignment has two purposes:
 
 ## Part 2: build and run starter code
 
-This assignement is to make sure your computer and you are both set up for the next three assignements. You do not have to hand-in anything. However, you can already play around with the code, and commit and push changes to your repository. For future assignements, you will have to commit and push your solutions to github. Commits (or rather pushes) after the deadline will be disregarded. So make sure you are ready and test out things with this assignement.
+This assignement is to make sure your computer and you are both set up for future assignements. For future assignements, you will have to commit and push your solutions to github. Commits (or rather pushes) after the deadline will be disregarded. So make sure you are ready and test out things with this assignment.
 
 ### Prerequisites
 Make sure you install the following:
@@ -45,7 +45,7 @@ On Windows, you can use Git Bash to perform the steps mentioned below.
     mkdir build && cd build
     cmake ..
     ```
-3. Compile code and run executable
+2. Compile code and run executable
     - for MacOS and Linux:
         ```
         make

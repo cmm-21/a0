@@ -21,6 +21,5 @@ target_include_directories(guiLib PUBLIC
 )
 target_compile_definitions(guiLib PUBLIC CMM_ASSETS_FOLDER="${CMAKE_CURRENT_LIST_DIR}/assets")
 target_compile_definitions(guiLib PUBLIC SHADER_FOLDER="${CMAKE_CURRENT_LIST_DIR}/../gui/shaders")
-message(${CMM_IMGUI_FONT_FOLDER})
 target_compile_definitions(guiLib PUBLIC IMGUI_FONT_FOLDER=${CMM_IMGUI_FONT_FOLDER})
 target_compile_definitions(guiLib PUBLIC IMGUI_IMPL_OPENGL_LOADER_GLAD)

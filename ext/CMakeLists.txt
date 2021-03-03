@@ -18,8 +18,8 @@ FetchContent_Declare(
 FetchContent_GetProperties(eigen)
 if(NOT eigen_POPULATED)
     FetchContent_Populate(eigen)
-	add_library(eigen INTERFACE)
-	target_include_directories(eigen INTERFACE ${eigen_SOURCE_DIR})
+        add_library(eigen INTERFACE)
+        target_include_directories(eigen INTERFACE ${eigen_SOURCE_DIR})
 endif()
 
 # glad
@@ -115,25 +115,25 @@ set( CMM_IMGUI_FONT_FOLDER "\"${imgui_SOURCE_DIR}/misc/fonts\"" CACHE STRING "")
 # stb_image
 add_subdirectory(stb_image)
 
-# # json
-# FetchContent_Declare(
-#     json
-#     URL                 https://github.com/nlohmann/json/releases/download/v3.9.1/include.zip
-#     URL_HASH            MD5=d2f66c608af689e21d69a33c220e974e
-#     SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/json-src
-#     SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/json-subbuild
-#     UPDATE_COMMAND ""
-#     CONFIGURE_COMMAND ""
-#     BUILD_COMMAND ""
-#     INSTALL_COMMAND ""
-# )
-# FetchContent_GetProperties(json)
-# if(NOT json_POPULATED)
-#     FetchContent_Populate(json)
-# endif()
-# add_library(nlohmann_json INTERFACE)
-# add_library(nlohmann::json ALIAS nlohmann_json)
-# target_include_directories(nlohmann_json INTERFACE $<BUILD_INTERFACE:${json_SOURCE_DIR}/include>)
+# json
+FetchContent_Declare(
+    json
+    URL                 https://github.com/nlohmann/json/releases/download/v3.9.1/include.zip
+    URL_HASH            MD5=d2f66c608af689e21d69a33c220e974e
+    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/json-src
+    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/json-subbuild
+    UPDATE_COMMAND ""
+    CONFIGURE_COMMAND ""
+    BUILD_COMMAND ""
+    INSTALL_COMMAND ""
+)
+FetchContent_GetProperties(json)
+if(NOT json_POPULATED)
+ FetchContent_Populate(json)
+endif()
+add_library(nlohmann_json INTERFACE)
+add_library(nlohmann::json ALIAS nlohmann_json)
+target_include_directories(nlohmann_json INTERFACE $<BUILD_INTERFACE:${json_SOURCE_DIR}/include>)
 
 # portable file dialog
 add_library(portable_file_dialogs INTERFACE)
