@@ -6,8 +6,8 @@
 #include <deque>
 #include <chrono>
 
-#include <Eigen/Core>
-using Eigen::Vector2f;
+#include <add.h>
+using namespace math;
 
 class TestApp : public Application
 {
@@ -49,7 +49,7 @@ public:
                 vel[1] -= 1;
             if(keyDown[GLFW_KEY_DOWN])
                 vel[1] += 1;
-            circleKey.pos += vel/(vel.norm()+1e-10) * 10;
+            circleKey.pos = math::add(circleKey.pos, vel/(vel.norm()+1e-10) * 10);
 
             bool isInsideKey = rect.isInside(circleKey.pos, circleKey.radius);
             bool isInsideMouse = rect.isInside(circleMouse.pos, circleMouse.radius);
@@ -57,7 +57,7 @@ public:
             circleMouse.colorFill = (isInsideMouse) ? (isInsideKey ? COLOR_SOLVED : COLOR_IN) : COLOR_OUT;
 
             if(draggingCircle)
-                circleMouse.pos = Vector2f(mouseState.lastMouseX, mouseState.lastMouseY) - draggingCircleOffset;
+                circleMouse.pos = math::add(Vector2f(mouseState.lastMouseX, mouseState.lastMouseY), - draggingCircleOffset);
 
             if(isInsideKey && isInsideMouse){
                 auto make_circle = [&](Vector2f origin)

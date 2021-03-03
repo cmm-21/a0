@@ -7,7 +7,7 @@ add_executable(${PROJECT_NAME}
 )
 target_link_libraries(${PROJECT_NAME}
     nlohmann_json
-    eigen
+    math
 )
 target_compile_definitions(${PROJECT_NAME} PUBLIC CMM_MY_INFO="${CMAKE_CURRENT_LIST_DIR}/../../my-info.json")
 
