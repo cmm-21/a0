@@ -132,7 +132,6 @@ public:
                 nvgStrokeColor(vg, circle.colorStroke);
                 nvgStrokeWidth(vg, 4.0f);
                 nvgStroke(vg);
-                nvgStroke(vg);
             };
 
             for(const auto &c : circles)

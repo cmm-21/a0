@@ -56,6 +56,11 @@ On Windows, you can use Git Bash to perform the steps mentioned below.
         * in the project explorer, right-click target "app" and set as startup app.
         * Hit F5!
 
+3. Implement the function `math::add` in the file `src/math/add.cpp`.
+
+4. Check if test passed: `make && ctest -V`
+
+5. Commit and push changes, and check on github if test also passed.
 
 ### Some comments
 
