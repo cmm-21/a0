@@ -69,5 +69,7 @@ On Windows, you can use Git Bash to perform the steps mentioned below.
         - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
     - Select a kit/variant and configure the project. See [this](https://vector-of-bool.github.io/docs/vscode-cmake-tools/getting_started.html#configuring-your-project) for more details (this corresponds to ```cmake ..```)
     - Click "Build" button in status bar (bar at the botton) to compile and run the executable by "Launch" button.
+    - If you want to debug your code, set cmake mode into "CMake: [Debug]" and click "Launch the debugger" button. 
+        - In "CMake: [Debug]" mode, the executable tends to run very slowly. Select "CMake: [Release]" to run the code fast (but in Release mode you cannot use breakpoints). 
 
 ![status bar](vscode.png)
