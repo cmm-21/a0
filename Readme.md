@@ -63,7 +63,7 @@ On Windows, you can use Git Bash to perform the steps mentioned below.
 
 - You will not have to edit any CMake file, so no real understanding of CMake is required. You might however want to generate build files for your favorite editor/IDE: https://cmake.org/cmake/help/latest/manual/cmake-generators.7.html
 
-- If you want to use VS Code, follow the instructions below:
+- If you want to use [VS Code](https://code.visualstudio.com/), follow the instructions below:
     - Install the following VS Code extensions.
         - [C/C++](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cpptools)
         - [CMake Tools](https://marketplace.visualstudio.com/items?itemName=ms-vscode.cmake-tools)
