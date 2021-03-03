@@ -7,19 +7,15 @@ This assignment has two purposes:
 
 ## Part 1: match github to student ID
 
-1. Insert your student id (Legi Nummer) in the file `student-id.txt`. Example: Your student id is 12-345-678. The contens of `student-id.txt` should be: 
-    ```
-    12-345-678
-    ```
+1. Insert your information (full name, student id, nethz username) into `my-info.json`.
 
-2. Commit and push the changes to `student-id.txt`. For example:
+2. Commit and push the changes to `my-info.json`. For example:
 
    ```
-   git add student-id.txt
-   git commit -m "added my student id number"
+   git add my-info.json
+   git commit -m "added my information"
    git push
    ```
-   
 
 3. Verify that your changes were uploaded to github.com by checking github.com/cmm-21/a0-YOUR_GITHUB_NAME
 
