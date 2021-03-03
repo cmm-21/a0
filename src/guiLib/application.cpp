@@ -252,7 +252,7 @@ void Application::draw() {
             LabelText("fps", "fps: %.1f", (imguiFps) ? ImGui::GetIO().Framerate : fps);
             SameLine();
             Checkbox("imgui fps", &imguiFps);
-            EndMenu();
+            ImGui::EndMenu();
         }
         EndMainMenuBar();
 

@@ -104,7 +104,7 @@ public:
         if(BeginMenu("debug")){
             Checkbox("draw cursor", &drawCursor);
             Checkbox("draw circles", &drawCircles);
-            EndMenu();
+            ImGui::EndMenu();
         }
         Text("| window size: %d x %d", width, height);
         Text("| pixel ratio: %f", pixelRatio);
