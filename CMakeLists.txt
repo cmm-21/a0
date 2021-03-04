@@ -5,9 +5,10 @@ project(a0)
 set(CMAKE_CXX_STANDARD 17)
 enable_testing()
 
+option(CMM_BUILD_GUI "build GUI" ON)
+
 # thirdparty code
 add_subdirectory(ext)
 
 # our code
-option(CMM_BUILD_GUI "build GUI" ON)
 add_subdirectory(src)
