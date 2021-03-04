@@ -1,4 +1,4 @@
-# Assignement 0
+# Assignment 0 - Settings things up
 
 This assignment has two purposes:
 
