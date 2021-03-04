@@ -46,7 +46,7 @@ add_library(nlohmann::json ALIAS nlohmann_json)
 target_include_directories(nlohmann_json INTERFACE $<BUILD_INTERFACE:${json_SOURCE_DIR}/include>)
 
 # GUI stuff below
-if(${CMM_BUILD_GUI})
+if(CMM_BUILD_GUI)
 
 # glad
 set(OpenGL_GL_PREFERENCE GLVND)
@@ -142,4 +142,4 @@ set( CMM_IMGUI_FONT_FOLDER "\"${imgui_SOURCE_DIR}/misc/fonts\"" CACHE STRING "")
 add_library(portable_file_dialogs INTERFACE)
 target_include_directories(portable_file_dialogs INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/portable-file-dialog)
 
-endif(${CMM_BUILD_GUI})
+endif(CMM_BUILD_GUI)
