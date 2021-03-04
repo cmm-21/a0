@@ -39,20 +39,26 @@ Make sure you install the following:
 
 On Windows, you can use Git Bash to perform the steps mentioned below.
 
-1. Run CMake to create project files
+1. Git clone your project, e.g.:
+
+   ```
+   git clone git@github.com:cmm-21/a0-XXX.git
+   ```
+
+2. Run CMake to create project files
     ```
-    cd comp-fab-a0-XXX
+    cd a0-XXX
     mkdir build && cd build
     cmake ..
     ```
-2. Compile code and run executable
+3. Compile code and run executable
     - for MacOS and Linux:
         ```
         make
         ./src/app/app
         ```
     - for Windows: 
-        * open `assignement0.sln` in Visual Studio
+        * open `build/a0.sln` in Visual Studio
         * in the project explorer, right-click target "app" and set as startup app.
         * Hit F5!
 
