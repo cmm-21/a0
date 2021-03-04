@@ -8,12 +8,6 @@ FetchContent_Declare(
     eigen
     URL                 https://gitlab.com/libeigen/eigen/-/archive/3.3.7/eigen-3.3.7.zip
     URL_HASH            MD5=888aab45512cc0c734b3e8f60280daba
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/eigen-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/eigen-subbuild
-    UPDATE_COMMAND      ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-    INSTALL_COMMAND     ""
 )
 FetchContent_GetProperties(eigen)
 if(NOT eigen_POPULATED)
@@ -30,12 +24,6 @@ FetchContent_Declare(
     json
     URL                 https://github.com/nlohmann/json/releases/download/v3.9.1/include.zip
     URL_HASH            MD5=d2f66c608af689e21d69a33c220e974e
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/json-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/json-subbuild
-    UPDATE_COMMAND ""
-    CONFIGURE_COMMAND ""
-    BUILD_COMMAND ""
-    INSTALL_COMMAND ""
 )
 FetchContent_GetProperties(json)
 if(NOT json_POPULATED)
@@ -47,7 +35,7 @@ target_include_directories(nlohmann_json INTERFACE $<BUILD_INTERFACE:${json_SOUR
 
 # GUI stuff below
 if(CMM_BUILD_GUI)
-
+message(STATUS "building CMM GUI")
 # glad
 set(OpenGL_GL_PREFERENCE GLVND)
 add_subdirectory(glad)
@@ -57,12 +45,6 @@ FetchContent_Declare(
     glfw
     URL                 https://github.com/glfw/glfw/archive/3.3.2.zip
     URL_HASH            MD5=69d0aa90a9278c0dd8be975d1ae4aaf2
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/glfw-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/glfw-subbuild
-    UPDATE_COMMAND      ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-    INSTALL_COMMAND     ""
 )
 FetchContent_GetProperties(glfw)
 if(NOT glfw_POPULATED)
@@ -73,26 +55,20 @@ set( GLFW_BUILD_TESTS       OFF CACHE BOOL  "GLFW lib only" )
 set( GLFW_BUILD_DOCS        OFF CACHE BOOL  "GLFW lib only" )
 set( GLFW_BUILD_INSTALL     OFF CACHE BOOL  "GLFW lib only" )
 set( GLFW_SRC_DIR ${CMAKE_CURRENT_LIST_DIR}/../ext/glfw/include)
-add_subdirectory(${glfw_SOURCE_DIR})
+add_subdirectory(${glfw_SOURCE_DIR} ext/glfw)
 
 # glm
 FetchContent_Declare(
     glm
     URL                 https://github.com/g-truc/glm/releases/download/0.9.9.7/glm-0.9.9.7.zip
     URL_HASH            MD5=da4740b5b41a1e2ccb2955af74e7c298
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/glm-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/glm-subbuild
-    UPDATE_COMMAND      ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-    INSTALL_COMMAND     ""
 )
 FetchContent_GetProperties(glm)
 if(NOT glm_POPULATED)
     FetchContent_Populate(glm)
 endif()
 set( GLM_TEST_ENABLE OFF CACHE BOOL "" )
-add_subdirectory(${glm_SOURCE_DIR})
+add_subdirectory(${glm_SOURCE_DIR} ext/glm)
 target_include_directories(glm INTERFACE ${glm_SOURCE_DIR}/glm)
 
 # nanovg
@@ -100,12 +76,6 @@ FetchContent_Declare(
     nanovg
     GIT_REPOSITORY      https://github.com/memononen/nanovg
     GIT_TAG             077b65e0cf3e22ee4f588783e319b19b0a608065
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/nanovg-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/nanovg-subbuild
-    UPDATE_COMMAND      ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-    INSTALL_COMMAND     ""
 )
 FetchContent_GetProperties(nanovg)
 if(NOT nanovg_POPULATED)
@@ -121,12 +91,6 @@ FetchContent_Declare(
     imgui
     URL                 https://github.com/ocornut/imgui/archive/v1.81.zip
     URL_HASH            MD5=78af0cf170fb3f2a431eb39cac7f55b8
-    SOURCE_DIR          ${CMM_FETCHCONTENT_SOURCE_DIR}/imgui-src
-    SUBBUILD_DIR        ${CMM_FETCHCONTENT_SOURCE_DIR}/imgui-subbuild
-    UPDATE_COMMAND      ""
-    CONFIGURE_COMMAND   ""
-    BUILD_COMMAND       ""
-    INSTALL_COMMAND     ""
 )
 FetchContent_GetProperties(imgui)
 if(NOT imgui_POPULATED)
