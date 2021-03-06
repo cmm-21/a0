@@ -30,10 +30,11 @@ Make sure you install the following:
     + Windows: download installer from website
     + Linux: e.g. `sudo apt install git`
     + MacOS: e.g. `brew install git`
-- CMake (https://cmake.org/)
+- CMake (https://cmake.org/) <= 3.19
     + Windows: download installer from website
     + Linux: e.g. `sudo apt install cmake`
     + MacOS: e.g. `brew install cmake`
+    + **Note** the latest CMake (3.20) is not compatible with our skeleton code: see issue [i4](https://github.com/cmm-21/a0/issues/4) and [i5](https://github.com/cmm-21/a0/issues/5).
 
 ### Building the code
 
